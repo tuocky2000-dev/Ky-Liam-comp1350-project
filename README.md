@@ -6,11 +6,6 @@ This is our COMP 1350 Web Administration term project. The goal is to take a sma
 
 Milestone A covers a working Express app, managed by PM2, deployed behind an Nginx reverse proxy with TLS, and HTTP requests get redirected to HTTPS automatically.
 
-## Team
-
-- Ky Thai (tuocky2000-dev) - Milestone A
-- Liam - Milestone B (in progress)
-
 ## Live URL
 
 https://wsalab5.info
