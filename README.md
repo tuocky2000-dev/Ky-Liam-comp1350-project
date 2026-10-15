@@ -32,35 +32,6 @@ Nginx is the only thing exposed to the public. The Express app only listens on 1
 - TLS is handled at the Nginx layer using a self signed certificate, which the lab said is fine for VM demos.
 - Any request on port 80 gets redirected to port 443 using a 301.
 
-### Nginx config (with comments)
-
-```nginx
-server {
-    listen 443 ssl;
-    server_name wsalab5.info;
-
-    # self signed cert made using openssl, 4096 bit RSA key
-    ssl_certificate /etc/nginx/ssl_key/server.crt;
-    ssl_certificate_key /etc/nginx/ssl_key/server.key;
-
-    location / {
-        # forward everything to our Express app running on port 3000 locally
-        proxy_pass http://127.0.0.1:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-
-server {
-    # plain HTTP requests get sent to HTTPS instead
-    listen 80;
-    server_name wsalab5.info;
-    return 301 https://$host$request_uri;
-}
-```
-
 ### Troubleshooting
 
 - After making the VM with a private network adapter (`192.168.56.15`), the adapter came up without an IP at all (`ip addr show` showed it as `DOWN` with no `inet` line). We fixed it by manually bringing the interface up and giving it the IP using `ip link set enp0s8 up` and `ip addr add 192.168.56.15/24 dev enp0s8`.
