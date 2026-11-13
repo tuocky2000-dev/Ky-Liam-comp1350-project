@@ -8,6 +8,18 @@ const authRoutes = require('./routes/auth');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const logDir = path.join(__dirname, 'logs');
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir);
+}
+const logStream = fs.createWriteStream(path.join(logDir, `app-${PORT}.log`), { flags: 'a' });
+
+console.log = function (d) {
+  const time = new Date().toISOString();
+  logStream.write(`[${time}] ${d}\n`);
+  process.stdout.write(`[${time}] ${d}\n`);
+};
+
 app.use(express.json());
 app.use(clerkMiddleware());
 
