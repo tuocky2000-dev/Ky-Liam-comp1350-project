@@ -16,7 +16,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', authRoutes);
 
 const htmlTemplate = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
-  .replace('__CLERK_PUBLISHABLE_KEY__', process.env.CLERK_PUBLISHABLE_KEY || '');
+  .replace('__CLERK_PUBLISHABLE_KEY__', process.env.CLERK_PUBLISHABLE_KEY || '')
+  .replace(/__GA_MEASUREMENT_ID__/g, process.env.GA_MEASUREMENT_ID || '');
 
 app.get('/', (req, res) => {
   res.send(htmlTemplate);
