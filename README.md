@@ -64,6 +64,9 @@ Nginx is the only thing exposed to the public (via ports 80 and 443). The Expres
 - **Load Balancing Test**: Send multiple HTTP requests to the load balancer endpoint (or access via the live URL routed through Nginx and HAProxy) and inspect the backend console logs or `/health` endpoint to verify that traffic successfully alternates between ports 3001 and 3002.
 - **CDN Verification**: Open browser Developer Tools (F12) -> Network tab, reload the page, and check that `style.css` is being fetched correctly from the `cdn.jsdelivr.net` domain.
 - **Analytics Real-time Check**: Access the live site (`https://kyliam.canadacentral.cloudapp.azure.com`) and verify in the Google Analytics (GA4) **Realtime** report that active pageviews and users are being actively tracked.
+
+  ![GA4 Live Traffic](assets/GA4%20live%20data.png)
+
 - **Centralized Logging Verification**: Check the `./logs/` directory or run `pm2 logs` to ensure that application outputs and errors from multiple instances are properly written and stored in the designated log files.
 
 ## SPOF (Single Point of Failure) Analysis & Documentation
